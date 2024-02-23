@@ -38,6 +38,8 @@
 #define ESP_BLE_MESH_VND_MODEL_ID_CLIENT    0x0000
 #define ESP_BLE_MESH_VND_MODEL_ID_SERVER    0x0001
 
+#define MSG_ROLE ROLE_NODE
+
 #define ESP_BLE_MESH_VND_MODEL_OP_SET      ESP_BLE_MESH_MODEL_OP_3(0x00, CID_ESP)
 #define ESP_BLE_MESH_VND_MODEL_OP_STATUS    ESP_BLE_MESH_MODEL_OP_3(0x01, CID_ESP)
 
@@ -141,6 +143,37 @@ static esp_ble_mesh_prov_t provision = {
     .output_actions = 0,
 #endif
 };
+
+// Testing for sending messages to provisioner
+esp_err_t send_message_to_provisioner(esp_ble_mesh_model_t *model, uint16_t provisioner_address) {
+    esp_err_t err;
+
+    // Initialize the message
+    esp_ble_mesh_msg_ctx_t ctx = {
+        .net_idx = model->pub->key.net_idx,
+        .app_idx = model->pub->app_idx,
+        .addr = provisioner_address, // Address of the provisioner
+        .send_ttl = 0,
+        .send_rel = false,
+    };
+
+    // Initialize the message buffer
+    esp_ble_mesh_model_msg_common_t msg = {
+        .opcode = ESP_BLE_MESH_MODEL_OP_GEN_ONOFF_GET, // Replace with your opcode
+        .ctx = &ctx,
+        .sdu = NULL, // Replace with your message data
+        .sdu_len = 0, // Replace with your message length
+    };
+
+    // Send the message
+    err = esp_ble_mesh_model_publish(model, &msg);
+    if (err != ESP_OK) {
+        ESP_LOGE(TAG, "Failed to send message to provisioner: %s", esp_err_to_name(err));
+        return err;
+    }
+
+    return ESP_OK;
+}
 
 static void prov_complete(uint16_t net_idx, uint16_t addr, uint8_t flags, uint32_t iv_index)
 {

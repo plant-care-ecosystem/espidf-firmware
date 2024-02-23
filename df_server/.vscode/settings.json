@@ -1,7 +1,13 @@
 {
   "C_Cpp.intelliSenseEngine": "default",
+  "idf.flashType": "UART",
   "idf.adapterTargetName": "esp32c6",
   "idf.openOcdConfigs": [
     "board/esp32c6-bridge.cfg"
-  ]
+  ],
+  "idf.portWin": "COM10",
+  "files.associations": {
+    "*.ejs": "html",
+    "nvs_flash.h": "c"
+  }
 }

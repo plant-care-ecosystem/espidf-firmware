@@ -61,6 +61,8 @@ static void board_led_init(void)
 static void button_tap_cb(void* arg)
 {
     ESP_LOGI(TAG, "tap cb (%s)", (char *)arg);
+    // Send a message to provisioner
+    send_message_to_provisioner("button_tap_cb", 0x0001);
 }
 
 static void board_button_init(void)

@@ -1,4 +1,4 @@
-# Install script for directory: C:/Users/Chris/Documents/esp/df_client/main
+# Install script for directory: C:/Users/Chris/Documents/esp/espidf-firmware/df_client/main
 
 # Set the install prefix
 if(NOT DEFINED CMAKE_INSTALL_PREFIX)

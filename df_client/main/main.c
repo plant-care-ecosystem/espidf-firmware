@@ -354,10 +354,10 @@ void example_ble_mesh_start_example_configuration(void)
     esp_err_t err;
     uint8_t address[12];
 
-    if (last_node_idx < 4) {
-        ESP_LOGE(TAG, "The network has too few nodes to run this example.");
-        return;
-    }
+    // if (last_node_idx < 4) {
+    //     ESP_LOGE(TAG, "The network has too few nodes to run this example.");
+    //     return;
+    // }
 
     memcpy(address, nodes[last_node_idx - 3].uuid + 2, 6);
     memcpy(address + 6, nodes[last_node_idx - 2].uuid + 2, 6);
